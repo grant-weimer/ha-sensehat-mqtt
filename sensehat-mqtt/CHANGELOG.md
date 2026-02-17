@@ -5,3 +5,6 @@
 - Initial release
 - Publish temperature (from humidity and pressure), humidity, and pressure to MQTT
 - Home Assistant MQTT discovery support for automatic sensor creation
+
+## 1.0.1
+ - Uses python image by default
