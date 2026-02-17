@@ -5,30 +5,12 @@ FROM ${BUILD_FROM}
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 
-# Alpine: Sense HAT runtime + build deps (sense-hat and RTIMULib compile from source; no musl wheels)
-RUN apk add --no-cache \
-    i2c-tools \
-    libjpeg-turbo \
-    zlib \
-    py3-pip \
-    && apk add --no-cache --virtual .build-deps \
-    gcc \
-    g++ \
-    cmake \
-    python3-dev \
-    linux-headers \
-    libjpeg-turbo-dev \
-    zlib-dev
-
-# sense-hat requires RTIMU from RTIMULib (IMU fusion); install explicitly for Alpine/musl
-RUN python3 -m pip install --no-cache-dir --break-system-packages \
-    RTIMULib \
-    sense-hat \
-    paho-mqtt \
-    && apk del .build-deps
+# Read Sense HAT env sensors via I2C (HTS221/LPS25H) using smbus2; no sense-hat/RTIMULib.
+RUN apk add --no-cache i2c-tools py3-pip \
+    && python3 -m pip install --no-cache-dir --break-system-packages smbus2 paho-mqtt
 
 WORKDIR /app
-COPY sensehat_mqtt.py /app/
+COPY sensehat_mqtt.py sensehat_sensors.py /app/
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 

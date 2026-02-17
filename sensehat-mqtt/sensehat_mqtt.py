@@ -16,9 +16,9 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from sense_hat import SenseHat
+    from sensehat_sensors import SenseHATSensors
 except ImportError as e:
-    print(f"Error: sense_hat not available: {e}", file=sys.stderr)
+    print(f"Error: sensehat_sensors not available: {e}", file=sys.stderr)
     sys.exit(1)
 
 
@@ -119,9 +119,7 @@ def main():
     update_interval = int(config.get("update_interval", 60))
     discovery_prefix = (config.get("discovery_prefix") or "homeassistant").strip()
 
-    sense = SenseHat()
-    sense.clear(255, 255, 255)
-    sense.low_light = True
+    sense = SenseHATSensors()
 
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=f"{DEVICE_ID}-bridge")
     userdata = {"connected": False}

@@ -20,3 +20,6 @@
 
  ## 1.0.5
  - install dependencies
+
+## 1.0.6
+- ditch the dependency
