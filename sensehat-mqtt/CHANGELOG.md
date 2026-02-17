@@ -8,3 +8,6 @@
 
 ## 1.0.1
  - Uses python image by default
+
+ ## 1.0.2
+ - Uses alpine now and builds sense-hat from source

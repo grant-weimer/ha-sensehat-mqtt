@@ -1,22 +1,28 @@
-# Default so local builds and supervisor (if BUILD_FROM ever empty) use Debian Python image
-ARG BUILD_FROM=python:3.11-slim-bookworm
+# Supervisor builds use ghcr.io/home-assistant/<arch>-base (Alpine). Default for local builds.
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM ${BUILD_FROM}
 
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 
-# Sense HAT needs I2C and some libs; keep image small
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        i2c-tools \
-        libjpeg62-turbo \
-        zlib1g \
-    && rm -rf /var/lib/apt/lists/*
+# Alpine: Sense HAT runtime + build deps (sense-hat compiles from source; no wheel for musl)
+RUN apk add --no-cache \
+    i2c-tools \
+    libjpeg-turbo \
+    zlib \
+    py3-pip \
+    && apk add --no-cache --virtual .build-deps \
+    gcc \
+    g++ \
+    python3-dev \
+    linux-headers \
+    libjpeg-turbo-dev \
+    zlib-dev
 
-# Use python -m pip so the correct interpreter is used in all base images
 RUN python3 -m pip install --no-cache-dir --break-system-packages \
     sense-hat \
-    paho-mqtt
+    paho-mqtt \
+    && apk del .build-deps
 
 WORKDIR /app
 COPY sensehat_mqtt.py /app/
