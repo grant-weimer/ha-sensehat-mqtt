@@ -1,0 +1,27 @@
+name: Sense HAT MQTT
+description: Publish Raspberry Pi Sense HAT sensors (temperature, humidity, pressure) to MQTT for Home Assistant. Requires I2C enabled on the host (e.g. HassOS I2C Configurator add-on) and the Sense HAT attached to the same Pi running Home Assistant OS.
+version: "1.0.0"
+slug: sensehat-mqtt
+arch:
+  - armhf
+  - aarch64
+startup: application
+boot: auto
+devices:
+  - /dev/i2c-1
+options:
+  mqtt_host: core-mosquitto
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+  topic_prefix: home/sensehat
+  update_interval: 60
+  discovery_prefix: homeassistant
+schema:
+  mqtt_host: str
+  mqtt_port: port
+  mqtt_username: str?
+  mqtt_password: password?
+  topic_prefix: str
+  update_interval: "int(10,3600)"
+  discovery_prefix: str

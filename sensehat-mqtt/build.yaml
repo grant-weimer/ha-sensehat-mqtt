@@ -1,0 +1,7 @@
+# Use Debian-based Python image so sense-hat and its dependencies install cleanly.
+# Alpine lacks prebuilt wheels for sense-hat and would require heavy build deps.
+build_from:
+  armhf: python:3.11-slim-bookworm
+  aarch64: python:3.11-slim-bookworm
+  amd64: python:3.11-slim-bookworm
+  i386: python:3.11-slim-bookworm
