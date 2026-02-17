@@ -5,6 +5,7 @@ slug: sensehat-mqtt
 arch:
   - armhf
   - aarch64
+init: false
 startup: application
 boot: auto
 devices:
