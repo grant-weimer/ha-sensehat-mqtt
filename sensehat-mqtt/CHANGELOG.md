@@ -26,3 +26,6 @@
 
 ## 1.0.7
 - forgot a file whoops
+
+## 1.0.8
+- refenced API better?
