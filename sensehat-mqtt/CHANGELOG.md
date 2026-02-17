@@ -12,5 +12,8 @@
  ## 1.0.2
  - Uses alpine now and builds sense-hat from source
 
- ## 1.03
+ ## 1.0.3
  - does something with the init
+
+ ## 1.0.4
+ - silly typo

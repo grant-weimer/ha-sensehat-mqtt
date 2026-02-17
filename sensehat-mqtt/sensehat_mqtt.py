@@ -160,7 +160,6 @@ def main():
             # Read sensors (from_humidity and from_pressure are the two temp sources on Sense HAT)
             temp_h = sense.get_temperature_from_humidity()
             temp_p = sense.get_temperature_from_pressure()
-            sense.
             humidity = sense.get_humidity()
             pressure = sense.get_pressure()
 
