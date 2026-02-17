@@ -1,4 +1,5 @@
-ARG BUILD_FROM
+# Default so local builds and supervisor (if BUILD_FROM ever empty) use Debian Python image
+ARG BUILD_FROM=python:3.11-slim-bookworm
 FROM ${BUILD_FROM}
 
 ARG BUILD_ARCH
@@ -12,7 +13,8 @@ RUN apt-get update \
         zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --break-system-packages \
+# Use python -m pip so the correct interpreter is used in all base images
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
     sense-hat \
     paho-mqtt
 

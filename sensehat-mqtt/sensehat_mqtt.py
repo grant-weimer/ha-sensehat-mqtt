@@ -120,7 +120,8 @@ def main():
     discovery_prefix = (config.get("discovery_prefix") or "homeassistant").strip()
 
     sense = SenseHat()
-    sense.clear()
+    sense.clear(255, 255, 255)
+    sense.low_light = True
 
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=f"{DEVICE_ID}-bridge")
     userdata = {"connected": False}
@@ -149,7 +150,7 @@ def main():
 
     status_topic = f"{topic_prefix}/status"
     discovery_done = False
-
+    
     while True:
         try:
             if not userdata["connected"]:
@@ -159,6 +160,7 @@ def main():
             # Read sensors (from_humidity and from_pressure are the two temp sources on Sense HAT)
             temp_h = sense.get_temperature_from_humidity()
             temp_p = sense.get_temperature_from_pressure()
+            sense.
             humidity = sense.get_humidity()
             pressure = sense.get_pressure()
 
