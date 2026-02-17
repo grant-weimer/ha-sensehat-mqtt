@@ -17,3 +17,6 @@
 
  ## 1.0.4
  - silly typo
+
+ ## 1.0.5
+ - install dependencies
