@@ -23,3 +23,6 @@
 
 ## 1.0.6
 - ditch the dependency
+
+## 1.0.7
+- forgot a file whoops
